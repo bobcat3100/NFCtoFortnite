@@ -81,7 +81,7 @@
             let ipAddress = decodeLinkingCode(linkingCode);
             if (ipAddress) {
                 // Construct the URL with the decoded IP address
-                let url = "http://" + ipAddress + ":8080/";
+                let url = "http://" + ipAddress + ":8080/?tag=1";
                 // Redirect to the constructed URL
                 window.location.href = url;
             }
