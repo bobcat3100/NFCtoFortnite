@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Access</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f1f1f1;
+            position: relative;
+            overflow: hidden;
+        }
+        .container {
+            position: relative;
+            z-index: 2;
+            margin-top: 200px; /* Adjust this value to move the form further down */
+        }
+        #linkingCodeForm {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #linkingCodeForm input {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+        #linkingCodeForm button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #linkingCodeForm button:hover {
+            background-color: #2980b9;
+        }
+        #loadingGif {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <img id="loadingGif" src="320bf808e83e47487fcfabd767d0a300_1.gif" alt="Loading GIF">
+    <div class="container">
+        <form id="linkingCodeForm">
+            <input type="text" id="linkingCode" name="linkingCode" maxlength="15" required placeholder="Enter your computer's linking code">
+            <button type="submit">Connect</button>
+        </form>
+    </div>
+
+    <script>
+        function decodeLinkingCode(linkingCode) {
+            let octets = linkingCode.split('-');
+            let ipAddress = octets.map(octet => parseInt(octet) - 4).join('.');
+            return ipAddress;
+        }
+
+        document.getElementById('linkingCodeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let linkingCode = document.getElementById('linkingCode').value;
+            let ipAddress = decodeLinkingCode(linkingCode);
+            if (ipAddress) {
+                // Construct the URL with the decoded IP address
+                let url = "http://" + ipAddress + ":8080/";
+                // Redirect to the constructed URL
+                window.location.href = url;
+            }
+        });
+    </script>
+</body>
+</html>
+</body>
+</html>
