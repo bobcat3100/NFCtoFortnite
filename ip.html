@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Access</title>
+    <style>
+        #gif-container {
+            position: relative;
+            width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+        #gif {
+            width: 100%;
+            display: block;
+        }
+        #linkingCodeForm {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -100%);
+            text-align: center;
+        }
+        #linkingCodeForm label,
+        #linkingCodeForm input,
+        #linkingCodeForm button {
+            display: block;
+            margin: 5px auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="gif-container">
+        <img id="gif" src="320bf808e83e47487fcfabd767d0a300_1.gif" alt="Loading gif">
+        <form id="linkingCodeForm">
+            <label for="linkingCode">Linking Code:</label>
+            <input type="text" id="linkingCode" name="linkingCode" maxlength="15" required>
+            <button type="submit">Connect</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('linkingCodeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let linkingCode = document.getElementById('linkingCode').value;
+            let ipAddress = decodeLinkingCode(linkingCode);
+            if (ipAddress) {
+                // Construct the URL with the entered IP address
+                let url = "http://" + ipAddress + ":8080/";
+                // Redirect to the constructed URL
+                window.location.href = url;
+            }
+        });
+    </script>
+</body>
+</html>
